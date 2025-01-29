@@ -40,11 +40,4 @@ class AntColonyOptimization:
 
             pheromone = self.__update_pheromones(pheromone, ants)
 
-        print(best_path)
-        print(best_path_length)
         return best_path, best_path_length
-
-
-coordinates = np.random.rand(10, 2)
-a = AntColonyOptimization(coordinates, n_ants=10, n_iterations=100, alpha=1, beta=1, evaporation_rate=0.7, q=1)
-a.optimize()
