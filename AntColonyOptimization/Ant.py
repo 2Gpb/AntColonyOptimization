@@ -11,13 +11,13 @@ class Ant:
         self.path_length = 0
 
     @staticmethod
-    def __distance(point1, point2):
+    def __calculate_distance(point1, point2):
         return np.linalg.norm(point1 - point2)
 
     def __select_next_point(self, current_point, unvisited):
         probabilities = np.array([
             (self.__pheromone[current_point, u] ** self.__alpha) /
-            (self.__distance(self.__points[current_point], self.__points[u]) ** self.__beta)
+            (self.__calculate_distance(self.__points[current_point], self.__points[u]) ** self.__beta)
             for u in unvisited
         ])
 
@@ -25,16 +25,16 @@ class Ant:
         return np.random.choice(unvisited, p=probabilities)
 
     def construct_solution(self, n_points):
-        visited = np.zeros(n_points, dtype=bool)
+        visited_points = np.zeros(n_points, dtype=bool)
         current_point = np.random.randint(n_points)
-        visited[current_point] = True
+        visited_points[current_point] = True
         self.path = [current_point]
         self.path_length = 0
 
-        while not visited.all():
-            unvisited = np.where(~visited)[0]
-            next_point = self.__select_next_point(current_point, unvisited)
+        while not visited_points.all():
+            unvisited_points = np.where(~visited_points)[0]
+            next_point = self.__select_next_point(current_point, unvisited_points)
             self.path.append(next_point)
-            self.path_length += self.__distance(self.__points[current_point], self.__points[next_point])
-            visited[next_point] = True
+            self.path_length += self.__calculate_distance(self.__points[current_point], self.__points[next_point])
+            visited_points[next_point] = True
             current_point = next_point

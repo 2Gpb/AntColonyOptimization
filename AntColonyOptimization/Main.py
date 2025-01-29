@@ -1,5 +1,5 @@
-import matplotlib.pyplot as plt
 from AntColonyOptimization import *
+import matplotlib.pyplot as plt
 import time
 
 
@@ -10,9 +10,9 @@ def print_banner():
 
 
 def print_results(points, best_path, best_path_length, execution_time):
-    for i, city in enumerate(best_path):
+    for i, point in enumerate(best_path):
         end = " ->" if i < len(best_path) - 1 else ""
-        print(f"City {city}: {points[city]}{end}")
+        print(f"Point {point}: {points[point]}{end}")
 
     print("\nBest Path (Indices):", " -> ".join(map(str, best_path)) + " -> " + str(best_path[0]))
 
@@ -31,7 +31,7 @@ def main():
     aco = AntColonyOptimization(
         points=coordinates,
         n_ants=10,
-        n_iterations=100,
+        iterations=100,
         alpha=1,
         beta=1,
         evaporation_rate=0.7,
